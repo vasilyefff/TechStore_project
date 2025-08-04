@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TechStore - Интернет-магазин электроники №1</title>
+    <meta
+      name="description"
+      content="TechStore - ведущий интернет-магазин электроники. Смартфоны, ноутбуки, планшеты, аксессуары. Быстрая доставка, гарантия качества."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍️</text></svg>"
+    />
+
+    <!-- Open Graph метатеги -->
+    <meta
+      property="og:title"
+      content="TechStore - Интернет-магазин электроники"
+    />
+    <meta
+      property="og:description"
+      content="Лучшие цены на смартфоны, ноутбуки и аксессуары"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Подключение стилей -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Preload для критических ресурсов -->
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      as="style"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    />
+  </head>
+  <body>
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+      <div class="cart-header">
+        <h2 class="cart-title">Корзина</h2>
+        <button class="cart-close" id="cartClose" aria-label="Закрыть корзину">
+          ✕
+        </button>
+      </div>
+      <div class="cart-items" id="cartItems">
+        <!-- Cart items will be inserted here -->
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>Итого:</span>
+          <span id="cartTotal">0 ₽</span>
+        </div>
+        <div class="cart-actions">
+          <button class="btn btn-primary btn-lg" id="checkoutBtn">
+            Оформить заказ
+          </button>
+          <button class="btn btn-secondary" id="clearCartBtn">
+            Очистить корзину
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+      <div class="header-top">
+        <div class="container">
+          <div class="header-top-info">
+            <span>📞 +7 (800) 123-45-67</span>
+            <span>📧 info@techstore.ru</span>
+          </div>
+          <div class="header-top-promo">
+            <span>🚚 Бесплатная доставка от 3000 ₽</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="container">
+          <nav class="nav">
+            <a href="#" class="logo">
+              <span class="logo-icon">🛍️</span>
+              <span class="logo-text">TechStore</span>
+            </a>
+
+            <ul class="nav-menu" id="navMenu">
+              <li><a href="#" class="nav-link">Главная</a></li>
+              <li><a href="#catalog" class="nav-link">Каталог</a></li>
+              <li><a href="#about" class="nav-link">О нас</a></li>
+              <li><a href="#delivery" class="nav-link">Доставка</a></li>
+              <li><a href="#contacts" class="nav-link">Контакты</a></li>
+            </ul>
+
+            <div class="search-container">
+              <span class="search-icon">🔍</span>
+              <input
+                type="text"
+                class="search-input"
+                id="searchInput"
+                placeholder="Поиск товаров..."
+                autocomplete="off"
+              />
+              <div class="search-results" id="searchResults"></div>
+            </div>
+
+            <div class="header-actions">
+              <!-- Theme Toggle -->
+              <button
+                class="theme-toggle"
+                id="themeToggle"
+                title="Переключить тему"
+                aria-label="Переключить тему"
+              >
+                <span class="theme-icon">🌙</span>
+              </button>
+
+              <!-- Wishlist -->
+              <button
+                class="wishlist-btn"
+                id="wishlistBtn"
+                title="Избранное"
+                aria-label="Избранное"
+              >
+                <span class="wishlist-icon">♡</span>
+                <span class="wishlist-count" id="wishlistCount">0</span>
+              </button>
+
+              <!-- Cart -->
+              <button
+                class="cart-btn"
+                id="cartBtn"
+                title="Корзина"
+                aria-label="Корзина"
+              >
+                <span class="cart-icon">🛒</span>
+                <span class="cart-count" id="cartCount">0</span>
+              </button>
+
+              <!-- Mobile Menu -->
+              <button
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                aria-label="Меню"
+              >
+                ☰
+              </button>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">Лучшая электроника по доступным ценам</h1>
+          <p class="hero-subtitle">
+            Смартфоны, ноутбуки, планшеты и аксессуары от ведущих мировых
+            брендов. Гарантия качества, быстрая доставка, выгодные цены.
+          </p>
+          <div class="hero-buttons">
+            <a href="#catalog" class="btn btn-primary btn-lg">
+              Смотреть каталог
+            </a>
+            <a href="#about" class="btn btn-outline btn-lg"> О магазине </a>
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-number" data-count="5000">0</span>
+            <span class="hero-stat-text">товаров в наличии</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-number" data-count="50000">0</span>
+            <span class="hero-stat-text">довольных клиентов</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-number" data-count="24">0</span>
+            <span class="hero-stat-text">часа поддержки</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories" id="categories">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Популярные категории</h2>
+          <p class="section-subtitle">
+            Выберите категорию товаров для быстрого поиска нужного устройства
+          </p>
+        </div>
+        <div class="categories-grid">
+          <div class="category-card" data-category="all">
+            <div class="category-icon">🔥</div>
+            <h3 class="category-name">Все товары</h3>
+            <p class="category-count" id="allCount">Весь ассортимент</p>
+          </div>
+          <div class="category-card" data-category="phones">
+            <div class="category-icon">📱</div>
+            <h3 class="category-name">Смартфоны</h3>
+            <p class="category-count" id="phonesCount">0 товаров</p>
+          </div>
+          <div class="category-card" data-category="laptops">
+            <div class="category-icon">💻</div>
+            <h3 class="category-name">Ноутбуки</h3>
+            <p class="category-count" id="laptopsCount">0 товаров</p>
+          </div>
+          <div class="category-card" data-category="tablets">
+            <div class="category-icon">📱</div>
+            <h3 class="category-name">Планшеты</h3>
+            <p class="category-count" id="tabletsCount">0 товаров</p>
+          </div>
+          <div class="category-card" data-category="accessories">
+            <div class="category-icon">🎧</div>
+            <h3 class="category-name">Аксессуары</h3>
+            <p class="category-count" id="accessoriesCount">0 товаров</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters" id="catalog">
+      <div class="container">
+        <div class="filters-content">
+          <div class="filter-group">
+            <span class="filter-label">Категория:</span>
+            <div class="filter-buttons" id="categoryFilters">
+              <button class="filter-btn active" data-category="all">Все</button>
+              <button class="filter-btn" data-category="phones">
+                Смартфоны
+              </button>
+              <button class="filter-btn" data-category="laptops">
+                Ноутбуки
+              </button>
+              <button class="filter-btn" data-category="tablets">
+                Планшеты
+              </button>
+              <button class="filter-btn" data-category="accessories">
+                Аксессуары
+              </button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">Сортировка:</span>
+            <select class="sort-select" id="sortSelect">
+              <option value="default">По умолчанию</option>
+              <option value="price-asc">Цена: по возрастанию</option>
+              <option value="price-desc">Цена: по убыванию</option>
+              <option value="name-asc">Название: А-Я</option>
+              <option value="name-desc">Название: Я-А</option>
+              <option value="rating">По рейтингу</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products">
+      <div class="container">
+        <div class="products-header">
+          <div class="products-info">
+            <h2 class="section-title">Каталог товаров</h2>
+            <div class="products-count" id="productsCount">
+              Найдено: 0 товаров
+            </div>
+          </div>
+          <div class="view-toggle">
+            <button class="view-btn active" data-view="grid" title="Сетка">
+              ⚏
+            </button>
+            <button class="view-btn" data-view="list" title="Список">☰</button>
+          </div>
+        </div>
+
+        <!-- Loading -->
+        <div class="loading-state" id="loadingState">
+          <div class="loading-spinner"></div>
+          <p>Загрузка товаров...</p>
+        </div>
+
+        <!-- Grid View -->
+        <div class="products-grid" id="productsGrid">
+          <!-- Products will be inserted here -->
+        </div>
+
+        <!-- List View -->
+        <div class="products-list" id="productsList">
+          <!-- List products will be inserted here -->
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none">
+          <div class="empty-state-icon">🔍</div>
+          <h3>Товары не найдены</h3>
+          <p>
+            Попробуйте изменить параметры поиска или выберите другую категорию
+          </p>
+          <button class="btn btn-primary" onclick="resetFilters()">
+            Сбросить фильтры
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+      <div class="container">
+        <div class="about-content">
+          <div class="about-text">
+            <h2>Почему выбирают TechStore?</h2>
+            <p>
+              Мы предлагаем только оригинальную технику от официальных
+              поставщиков с полной гарантией и послепродажным обслуживанием.
+            </p>
+            <ul class="about-features">
+              <li>✅ Только оригинальная продукция</li>
+              <li>✅ Гарантия на все товары</li>
+              <li>✅ Быстрая доставка по всей России</li>
+              <li>✅ Техподдержка 24/7</li>
+            </ul>
+          </div>
+          <div class="about-stats">
+            <div class="stat-item">
+              <div class="stat-number">5+</div>
+              <div class="stat-label">лет на рынке</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">50K+</div>
+              <div class="stat-label">довольных клиентов</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">99%</div>
+              <div class="stat-label">положительных отзывов</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>TechStore</h3>
+            <p>
+              Ведущий интернет-магазин электроники в России. Качественные
+              товары, доступные цены, быстрая доставка.
+            </p>
+            <div class="social-links">
+              <a href="#" class="social-link">📘</a>
+              <a href="#" class="social-link">📷</a>
+              <a href="#" class="social-link">🐦</a>
+            </div>
+          </div>
+          <div class="footer-section">
+            <h3>Информация</h3>
+            <ul>
+              <li><a href="#">О компании</a></li>
+              <li><a href="#">Доставка и оплата</a></li>
+              <li><a href="#">Гарантия</a></li>
+              <li><a href="#">Возврат товара</a></li>
+              <li><a href="#">Политика конфиденциальности</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Поддержка</h3>
+            <ul>
+              <li><a href="#">Контакты</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Техподдержка</a></li>
+              <li><a href="#">Обратная связь</a></li>
+              <li><a href="#">Статус заказа</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Контакты</h3>
+            <ul>
+              <li>📞 +7 (800) 123-45-67</li>
+              <li>📧 info@techstore.ru</li>
+              <li>📍 Москва, ул. Примерная, 123</li>
+              <li>🕐 Пн-Вс: 9:00-21:00</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 TechStore. Все права защищены.</p>
+          <p>Создано для демонстрации возможностей веб-разработки</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+      <div class="notification-content">
+        <span class="notification-icon" id="notificationIcon">✅</span>
+        <span class="notification-message" id="notificationMessage"></span>
+        <button class="notification-close" id="notificationClose">✕</button>
+      </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="modal-overlay" id="quickViewModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="quickViewTitle">Быстрый просмотр</h3>
+          <button class="modal-close" id="quickViewClose">✕</button>
+        </div>
+        <div class="modal-body" id="quickViewBody">
+          <!-- Quick view content will be inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" title="Наверх">↑</button>
+
+    <!-- Подключение JavaScript -->
+    <script src="js/main.js"></script>
+  </body>
+</html>
